@@ -1,14 +1,13 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { redirect, Route, Routes } from 'react-router-dom';
-import { UserType } from './utils/types';
+import { EventInfoType, ToDo, UserType } from './utils/types';
 import userService from './services/userService';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import MainLogo from './components/MainLogo';
 import NavBar from './components/NavBar';
 import Notification from './components/Notification';
-import Profile from './pages/Profile';
+import Profile from './pages/Agenda';
 import Register from './pages/Register';
 import './App.css';
 
@@ -16,6 +15,8 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState<UserType | null>(null);
   const [query, setQuery] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
+  const [events, setEvents] = useState<EventInfoType[]>([]);
+  const [toDos, setToDos] = useState<ToDo[]>([]);
 
   const handleLogout = () => {
     setLoggedInUser(null);
@@ -49,36 +50,39 @@ function App() {
   });
 
   return (
-    <Container fluid id='main-container'>
+    <Container fluid id="main-container">
       <NavBar loggedInUser={loggedInUser} handleLogout={handleLogout} />
       <Notification message={message} setMessage={setMessage} />
       <Container
         fluid
-        className='d-flex flex-column'
+        className="d-flex flex-column"
         style={{ height: 'var(--main-height)' }}
       >
-        <MainLogo />
         <Routes>
           <Route
-            path='/'
+            path="/"
             element={
               <Home
                 query={query}
                 setQuery={setQuery}
                 handleSubmit={handleSearchSubmit}
                 loggedInUser={loggedInUser}
+                events={events}
+                setEvents={setEvents}
+                toDos={toDos}
+                setToDos={setToDos}
               />
             }
           />
           {loggedInUser ? (
             <Route
-              path='/profile'
+              path="/profile"
               element={<Profile loggedInUser={loggedInUser} />}
             />
           ) : (
             <>
               <Route
-                path='/register'
+                path="/register"
                 element={
                   <Register
                     setLoggedInUser={setLoggedInUser}
@@ -87,7 +91,7 @@ function App() {
                 }
               />
               <Route
-                path='/login'
+                path="/login"
                 element={
                   <Login
                     setLoggedInUser={setLoggedInUser}

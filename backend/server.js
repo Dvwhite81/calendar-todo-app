@@ -14,8 +14,10 @@ app.use(cors());
 
 const dbURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT;
+console.log('secret:', process.env.JWT_SECRET);
 
-mongoose.connect(dbURI)
+mongoose
+  .connect(dbURI)
   .then(() => {
     app.listen(PORT, () => console.log(`Server live on port ${PORT}`));
   })

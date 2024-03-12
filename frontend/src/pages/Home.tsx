@@ -1,23 +1,16 @@
-import { SyntheticEvent } from 'react';
 import { Container } from 'react-bootstrap';
-import { UserType } from '../utils/types';
-import Search from '../components/Search';
+import EventCalendar from '../components/EventCalendar';
+import { HomeProps } from '../utils/props';
 
-interface HomeProps {
-  query: string
-  setQuery: (value: string) => void
-  handleSubmit: (e: SyntheticEvent) => void
-  loggedInUser: UserType | null
-}
-
-const Home = ({
-  query,
-  setQuery,
-  handleSubmit,
-}: HomeProps) => {
+const Home = ({ events, setEvents, toDos, setToDos }: HomeProps) => {
   return (
     <Container fluid>
-      <Search query={query} setQuery={setQuery} handleSubmit={handleSubmit} />
+      <EventCalendar
+        events={events}
+        setEvents={setEvents}
+        toDos={toDos}
+        setToDos={setToDos}
+      />
     </Container>
   );
 };

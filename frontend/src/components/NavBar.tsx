@@ -6,8 +6,8 @@ import LogoutBtn from './LogoutBtn';
 import DropdownMenu from './DropdownMenu';
 
 interface NavBarProps {
-  loggedInUser: UserType | null
-  handleLogout: () => void
+  loggedInUser: UserType | null;
+  handleLogout: () => void;
 }
 
 const NavBar = ({ loggedInUser, handleLogout }: NavBarProps) => {
@@ -23,14 +23,14 @@ const NavBar = ({ loggedInUser, handleLogout }: NavBarProps) => {
 
   return (
     <Navbar
-      bg='dark'
-      data-bs-theme='dark'
-      className='h-100 mx-0 d-flex p-2 rounded'
+      bg="dark"
+      data-bs-theme="dark"
+      className="h-100 mx-0 d-flex p-2 rounded"
     >
       {loggedInUser ? (
-        <Link to='/profile'>Profile</Link>
+        <Link to="/agenda">Agenda</Link>
       ) : (
-        <Link to='/register'>Sign Up</Link>
+        <Link to="/register">Sign Up</Link>
       )}
       <NavDropdown
         style={{
@@ -38,17 +38,16 @@ const NavBar = ({ loggedInUser, handleLogout }: NavBarProps) => {
           margin: 'auto',
           width: 'fit-content',
         }}
-        title='Categories'
+        title="Categories"
         onClick={handleVisibleClick}
       >
         {isVisible && <DropdownMenu handleClick={handleVisibleClick} />}
       </NavDropdown>
       {loggedInUser ? (
-        <Link to='/saved'>Saved</Link>
+        <LogoutBtn handleLogout={handleLogoutClick} />
       ) : (
-        <Link to='/login'>Log In</Link>
+        <Link to="/login">Log In</Link>
       )}
-      {loggedInUser && <LogoutBtn handleLogout={handleLogoutClick} />}
     </Navbar>
   );
 };
