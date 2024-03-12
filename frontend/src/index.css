@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+  font-family: roboto, sans-serif;
+  font-size: large;
+  font-weight: bold;
+  margin: 0;
+  padding: 0!important;
+}
+
+html,
+body {
+  background: linear-gradient(to top, black, lightgray);
+  height: 100%;
+  overflow-x: hidden;
+  width: 100vw;
+}
