@@ -2,7 +2,10 @@ import { useState } from 'react';
 import CalendarDays from './CalendarDays';
 import { CalendarProps } from '../../utils/props';
 import NextIcon from '../../assets/images/black-next-icon.png';
+import NextTransparentIcon from '../../assets/images/black-next-icon-transparent.png';
 import PrevIcon from '../../assets/images/black-previous-icon.png';
+import PrevTransparentIcon from '../../assets/images/black-previous-icon-transparent.png';
+
 import './Calendar.css';
 
 const Calendar = ({
@@ -12,6 +15,8 @@ const Calendar = ({
   handleSelectSlot,
   getEventStyle,
 }: CalendarProps) => {
+  const [hoverPrevIcon, setHoverPrevIcon] = useState(PrevTransparentIcon);
+  const [hoverNextIcon, setHoverNextIcon] = useState(NextTransparentIcon);
   const [currentDay, setCurrentDay] = useState(new Date().getDate());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -53,17 +58,47 @@ const Calendar = ({
     }
   };
 
+  const toggleIcon = (type: string) => {
+    if (type === 'prev') {
+      if (hoverPrevIcon === PrevIcon) {
+        setHoverPrevIcon(PrevTransparentIcon);
+      } else {
+        setHoverPrevIcon(PrevIcon);
+      }
+    }
+
+    if (type === 'next') {
+      if (hoverNextIcon === NextIcon) {
+        setHoverNextIcon(NextTransparentIcon);
+      } else {
+        setHoverNextIcon(NextIcon);
+      }
+    }
+  };
+
   return (
     <div className="calendar">
       <div className="calendar-header">
         <button onClick={prevMonth}>
-          <img className="icon calendar-icon" src={PrevIcon} alt="previous" />
+          <img
+            className="icon calendar-icon"
+            src={hoverPrevIcon}
+            alt="previous"
+            onMouseOver={() => toggleIcon('prev')}
+            onMouseLeave={() => toggleIcon('prev')}
+          />
         </button>
         <h2 className="calendar-header-text">
           {months[currentMonth]} {currentYear}
         </h2>
         <button onClick={nextMonth}>
-          <img className="icon calendar-icon" src={NextIcon} alt="next" />
+          <img
+            className="icon calendar-icon"
+            src={hoverNextIcon}
+            alt="next"
+            onMouseOver={() => toggleIcon('next')}
+            onMouseLeave={() => toggleIcon('next')}
+          />
         </button>
       </div>
       <div className="calendar-body">

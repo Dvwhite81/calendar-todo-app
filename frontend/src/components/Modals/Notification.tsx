@@ -14,10 +14,11 @@ const Notification = ({ message, setMessage }: NotificationProps) => {
 
   if (message === null) return;
 
+  /*
   setTimeout(() => {
     setMessage(null);
   }, 2000);
-
+  */
   return (
     <Container fluid id="notification-modal">
       <span className="modal-close" onClick={hide}>

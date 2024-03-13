@@ -1,18 +1,29 @@
-import { UserType } from '../utils/types';
+import { AgendaProps } from '../utils/props';
 
-interface ProfileProps {
-  loggedInUser: UserType;
-}
-
-const Profile = ({ loggedInUser }: ProfileProps) => {
+const Agenda = ({ loggedInUser, toDos, events }: AgendaProps) => {
   const { username } = loggedInUser;
 
   return (
     <div className="page">
-      <h1>Profile</h1>
       <p>Username: {username}</p>
+      <p>Events:</p>
+      <ul>
+        {events.map((event, index) => (
+          <li key={index}>
+            <p>{event.description}</p>
+          </li>
+        ))}
+      </ul>
+      <p>ToDos:</p>
+      <ul>
+        {toDos.map((toDo, index) => (
+          <li key={index}>
+            <p>{toDo.title}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default Profile;
+export default Agenda;

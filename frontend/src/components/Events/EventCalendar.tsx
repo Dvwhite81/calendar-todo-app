@@ -90,6 +90,9 @@ const EventCalendar = ({
   const onAddDate = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    console.log('e:', e);
+    console.log('dateFormData:', dateFormData);
+
     const addHours = (date: Date | undefined, hours: number) => {
       return date ? date.setHours(date.getHours() + hours) : undefined;
     };
@@ -103,7 +106,10 @@ const EventCalendar = ({
     const data: EventInfoType = {
       ...dateFormData,
       _id: generateId(),
-      start: setMinToZero(dateFormData.start),
+      start:
+        dateFormData.start !== undefined
+          ? setMinToZero(dateFormData.start)
+          : new Date(),
       end: dateFormData.allDay
         ? addHours(dateFormData.start, 12)
         : setMinToZero(dateFormData.end),

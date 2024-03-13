@@ -31,7 +31,7 @@ const DropdownMenu = ({ handleClick }: DropdownMenuProps) => {
         >
           <p
             key={category}
-            style={{ color: 'whitesmoke' }}
+            style={{ color: 'var(--off-white)' }}
             onClick={() => handleLinkClick(category)}
           >
             {category}

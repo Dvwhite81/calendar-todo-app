@@ -73,7 +73,6 @@ const Register = ({ setLoggedInUser, setMessage }: RegisterProps) => {
 
   return (
     <div className="page">
-      <h2>Sign Up</h2>
       <form className="user-form" onSubmit={handleSubmit}>
         <FormInput
           label="Username"
@@ -98,7 +97,10 @@ const Register = ({ setLoggedInUser, setMessage }: RegisterProps) => {
         </button>
       </form>
       <p className="text-center">
-        Already have an account? <Link to="/login">Log In</Link>
+        Already have an account?{' '}
+        <Link className="link form-link" to="/login">
+          Log In
+        </Link>
       </p>
     </div>
   );

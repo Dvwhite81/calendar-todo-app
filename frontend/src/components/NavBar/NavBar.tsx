@@ -21,18 +21,23 @@ const NavBar = ({ loggedInUser, handleLogout }: NavBarProps) => {
   return (
     <nav id="navbar">
       {loggedInUser ? (
-        <Link className="text-white text-decoration-none" to="/agenda">
+        <Link className="link nav-link" to="/agenda">
           Agenda
         </Link>
       ) : (
-        <Link className="text-white text-decoration-none" to="/register">
+        <Link className="link nav-link" to="/register">
           Sign Up
         </Link>
       )}
+
+      <Link className="link nav-link" to="/">
+        Calendar
+      </Link>
+
       {loggedInUser ? (
         <LogoutBtn handleLogout={handleLogoutClick} />
       ) : (
-        <Link className="text-white text-decoration-none" to="/login">
+        <Link className="link nav-link" to="/login">
           Log In
         </Link>
       )}

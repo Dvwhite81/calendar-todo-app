@@ -1,8 +1,12 @@
 #notification-modal {
   align-items: center;
-  background: linear-gradient(to top, black, lightgray);
+  background: linear-gradient(
+    to top,
+    var(--darker-green),
+    var(--lighter-green)
+  );
   border-radius: 5px;
-  color: whitesmoke;
+  color: var(--off-white);
   display: grid;
   height: 25%;
   left: 50%;
@@ -16,7 +20,7 @@
 }
 
 .modal-close {
-  color: whitesmoke;
+  color: var(--off-white);
   font-size: 28px;
   font-weight: bold;
   position: absolute;
@@ -26,7 +30,7 @@
 
 .modal-close:hover,
 .modal-close:focus {
-  color: black;
+  color: var(--dark-bg-2);
   text-decoration: none;
   cursor: pointer;
 }

@@ -50,7 +50,6 @@ const Login = ({ setLoggedInUser, setMessage }: LoginProps) => {
 
   return (
     <div className="page">
-      <h2>Login</h2>
       <form className="user-form" onSubmit={handleSubmit}>
         <FormInput
           label="Username"
@@ -69,7 +68,10 @@ const Login = ({ setLoggedInUser, setMessage }: LoginProps) => {
         </button>
       </form>
       <p className="text-center">
-        Don't have an account? <Link to="/register">Sign up</Link>
+        Don't have an account?{' '}
+        <Link className="link form-link" to="/register">
+          Sign up
+        </Link>
       </p>
     </div>
   );

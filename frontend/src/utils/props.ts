@@ -97,3 +97,9 @@ export interface AllModalsProps {
   toDoModalOpen: boolean;
   handleToDoModalClose: () => void;
 }
+
+export interface AgendaProps {
+  loggedInUser: UserType;
+  toDos: ToDo[];
+  events: EventInfoType[];
+}

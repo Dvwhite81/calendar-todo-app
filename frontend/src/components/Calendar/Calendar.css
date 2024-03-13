@@ -67,6 +67,7 @@
 
 .calendar-day:hover {
   background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .calendar-day p {
@@ -76,10 +77,23 @@
 }
 
 .current p {
-  color: #000000;
+  color: black;
+}
+
+.selected {
+  background-color: var(--lighter-green);
+}
+
+.selected:hover {
+  background-color: var(--darker-green);
+  color: var(--off-white);
 }
 
 .selected p {
-  color: #cc0000;
+  color: var(--darker-green);
   font-weight: bold;
+}
+
+.selected:hover p {
+  color: var(--off-white);
 }

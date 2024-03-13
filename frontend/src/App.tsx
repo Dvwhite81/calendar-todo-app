@@ -4,11 +4,11 @@ import { redirect, Route, Routes } from 'react-router-dom';
 import { EventInfoType, ToDo, UserType } from './utils/types';
 import userService from './services/userService';
 
+import Agenda from './pages/Agenda';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NavBar from './components/NavBar/NavBar';
 import Notification from './components/Modals/Notification';
-import Profile from './pages/Agenda';
 import Register from './pages/Register';
 import './App.css';
 
@@ -73,8 +73,14 @@ function App() {
           />
           {loggedInUser ? (
             <Route
-              path="/profile"
-              element={<Profile loggedInUser={loggedInUser} />}
+              path="/agenda"
+              element={
+                <Agenda
+                  loggedInUser={loggedInUser}
+                  toDos={toDos}
+                  events={events}
+                />
+              }
             />
           ) : (
             <>
