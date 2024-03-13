@@ -1,5 +1,5 @@
-import { getCurrentDays } from '../utils/helpers';
-import { CalendarDaysProps } from '../utils/props';
+import { getCurrentDays } from '../../utils/helpers';
+import { CalendarDaysProps } from '../../utils/props';
 
 const CalendarDays = ({
   currentDay,

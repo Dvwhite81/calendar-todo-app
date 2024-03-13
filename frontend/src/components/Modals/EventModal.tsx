@@ -10,7 +10,8 @@ import {
   Autocomplete,
   Box,
 } from '@mui/material';
-import { EventModalProps, ToDo } from '../utils/types';
+import { ToDo } from '../../utils/types';
+import { EventModalProps } from '../../utils/props';
 
 const EventModal = ({
   open,

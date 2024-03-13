@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserType } from '../utils/types';
+import { UserType } from '../../utils/types';
 import LogoutBtn from './LogoutBtn';
 import DropdownMenu from './DropdownMenu';
 

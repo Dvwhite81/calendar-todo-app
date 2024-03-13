@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container, Form } from 'react-bootstrap';
 import userService from '../services/userService';
 import { AuthResult, UserType } from '../utils/types';
-import FormInput from '../components/FormInput';
+import FormInput from '../components/Forms/FormInput';
 
 interface LoginProps {
-  setLoggedInUser: (user: UserType) => void
-  setMessage: (message: string) => void
+  setLoggedInUser: (user: UserType) => void;
+  setMessage: (message: string) => void;
 }
 
 const Login = ({ setLoggedInUser, setMessage }: LoginProps) => {
@@ -50,23 +50,23 @@ const Login = ({ setLoggedInUser, setMessage }: LoginProps) => {
   return (
     <Container fluid>
       <h2>Login</h2>
-      <Form className='user-form' onSubmit={handleSubmit}>
+      <Form className="user-form" onSubmit={handleSubmit}>
         <FormInput
-          label='Username'
-          type='text'
+          label="Username"
+          type="text"
           value={username}
           setValue={setUsername}
         />
         <FormInput
-          label='Password'
-          type='password'
+          label="Password"
+          type="password"
           value={password}
           setValue={setPassword}
         />
-        <Button type='submit'>Log In</Button>
+        <Button type="submit">Log In</Button>
       </Form>
-      <p className='text-center'>
-        Don't have an account? <Link to='/register'>Sign up</Link>
+      <p className="text-center">
+        Don't have an account? <Link to="/register">Sign up</Link>
       </p>
     </Container>
   );

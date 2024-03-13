@@ -37,7 +37,7 @@ a {
 .card-header {
   display: flex;
   height: 15vh;
-  padding-bottom: 1rem!important;
+  padding-bottom: 1rem !important;
 }
 
 img.card-img-top {
@@ -55,6 +55,8 @@ input {
 }
 
 button {
+  background-color: transparent;
+  border: none;
   margin: 0 auto !important;
   padding: 5px 10px !important;
   width: fit-content;
@@ -129,4 +131,8 @@ button {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.calendar-icon {
+  height: 5vh;
 }

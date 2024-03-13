@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import CalendarDays from './CalendarDays';
-import { CalendarProps } from '../utils/props';
+import { CalendarProps } from '../../utils/props';
+import NextIcon from '../../assets/images/black-next-icon.png';
+import PrevIcon from '../../assets/images/black-previous-icon.png';
 import './Calendar.css';
 
 const Calendar = ({
@@ -50,17 +52,18 @@ const Calendar = ({
     }
   };
 
-  console.log('events:', events);
-  console.log('toDos:', toDos);
-
   return (
     <div className="calendar">
       <div className="calendar-header">
-        <button onClick={prevMonth}>prev</button>
+        <button onClick={prevMonth}>
+          <img className="icon calendar-icon" src={PrevIcon} alt="previous" />
+        </button>
         <h2 className="calendar-header-text">
           {months[currentMonth]} {currentYear}
         </h2>
-        <button onClick={nextMonth}>next</button>
+        <button onClick={nextMonth}>
+          <img className="icon calendar-icon" src={NextIcon} alt="next" />
+        </button>
       </div>
       <div className="calendar-body">
         <div className="table-header">

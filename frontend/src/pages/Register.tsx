@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container, Form } from 'react-bootstrap';
 import userService from '../services/userService';
 import { AuthResult, UserType } from '../utils/types';
-import FormInput from '../components/FormInput';
+import FormInput from '../components/Forms/FormInput';
 
 interface RegisterProps {
-  setLoggedInUser: (user: UserType) => void
-  setMessage: (message: string) => void
+  setLoggedInUser: (user: UserType) => void;
+  setMessage: (message: string) => void;
 }
 
 const Register = ({ setLoggedInUser, setMessage }: RegisterProps) => {
@@ -73,29 +73,29 @@ const Register = ({ setLoggedInUser, setMessage }: RegisterProps) => {
   return (
     <Container fluid>
       <h2>Sign Up</h2>
-      <Form className='user-form' onSubmit={handleSubmit}>
+      <Form className="user-form" onSubmit={handleSubmit}>
         <FormInput
-          label='Username'
-          type='text'
+          label="Username"
+          type="text"
           value={username}
           setValue={setUsername}
         />
         <FormInput
-          label='Password'
-          type='password'
+          label="Password"
+          type="password"
           value={password}
           setValue={setPassword}
         />
         <FormInput
-          label='Confirm'
-          type='password'
+          label="Confirm"
+          type="password"
           value={confirmation}
           setValue={setConfirmation}
         />
-        <Button type='submit'>Sign Up</Button>
+        <Button type="submit">Sign Up</Button>
       </Form>
-      <p className='text-center'>
-        Already have an account? <Link to='/login'>Log In</Link>
+      <p className="text-center">
+        Already have an account? <Link to="/login">Log In</Link>
       </p>
     </Container>
   );

@@ -8,7 +8,7 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-import { InfoModalProps } from '../utils/types';
+import { InfoModalProps } from '../../utils/types';
 
 const InfoModal = ({
   open,

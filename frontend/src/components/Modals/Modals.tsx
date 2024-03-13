@@ -1,5 +1,5 @@
-import { AllModalsProps } from '../utils/props';
-import { EventInfoType } from '../utils/types';
+import { AllModalsProps } from '../../utils/props';
+import { EventInfoType } from '../../utils/types';
 import DateModal from './DateModal';
 import EventModal from './EventModal';
 import InfoModal from './InfoModal';

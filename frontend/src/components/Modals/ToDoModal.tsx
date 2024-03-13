@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Dialog,
   DialogActions,
@@ -15,9 +16,8 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { HexColorPicker } from 'react-colorful';
-import { ToDoModalProps } from '../utils/types';
-import { useState } from 'react';
-import { generateId } from '../utils/helpers';
+import { ToDoModalProps } from '../../utils/props';
+import { generateId } from '../../utils/helpers';
 
 const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
   const [color, setColor] = useState('#b32aa9');

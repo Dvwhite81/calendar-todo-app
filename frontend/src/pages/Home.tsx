@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-import EventCalendar from '../components/EventCalendar';
+import EventCalendar from '../components/Events/EventCalendar';
 import { HomeProps } from '../utils/props';
 
 const Home = ({ events, setEvents, toDos, setToDos }: HomeProps) => {

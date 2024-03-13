@@ -11,21 +11,21 @@ import {
 } from '@mui/material';
 
 // import EventInfo from './EventInfo';
-import EventModal from './EventModal';
-import InfoModal from './InfoModal';
-import DateModal from './DateModal';
-import ToDoModal from './ToDoModal';
+import EventModal from '../Modals/EventModal';
+import InfoModal from '../Modals/InfoModal';
+import DateModal from '../Modals/DateModal';
+import ToDoModal from '../Modals/ToDoModal';
 
 import { Event as BigEvent } from 'react-big-calendar';
 
-import { DateFormData, EventFormData, EventInfoType } from '../utils/types';
+import { DateFormData, EventFormData, EventInfoType } from '../../utils/types';
 import {
   generateId,
   initialDateFormData,
   initialEventFormState,
-} from '../utils/helpers';
-import Calendar from './Calendar';
-import { EventAndToDoProps } from '../utils/props';
+} from '../../utils/helpers';
+import Calendar from '../Calendar/Calendar';
+import { EventAndToDoProps } from '../../utils/props';
 
 const EventCalendar = ({
   events,

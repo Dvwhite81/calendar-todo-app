@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { EventInfoProps } from '../utils/props';
+import { EventInfoProps } from '../../utils/props';
 
 const EventInfo = ({ event }: EventInfoProps) => {
   return (
