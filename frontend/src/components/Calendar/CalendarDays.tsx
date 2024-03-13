@@ -9,6 +9,11 @@ const CalendarDays = ({
   currentYear,
   setCurrentYear,
   setCurrentDate,
+  events,
+  toDos,
+  handleSelectEvent,
+  handleSelectSlot,
+  getEventStyle,
 }: CalendarDaysProps) => {
   const firstDay = new Date(currentYear, currentMonth, 1);
   const weekdayOfFirstDay = firstDay.getDay();
@@ -36,6 +41,7 @@ const CalendarDays = ({
     <div className="table-content">
       {currentDays.map((d) => (
         <div
+          key={`${d.date.getMonth()} ${d.date.getDate()}`}
           className={
             'calendar-day' +
             (d.currentMonth ? ' current' : '') +

@@ -1,8 +1,9 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
 import { redirect, Route, Routes } from 'react-router-dom';
+
 import { EventInfoType, ToDo, UserType } from './utils/types';
 import userService from './services/userService';
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NavBar from './components/NavBar/NavBar';
@@ -50,14 +51,10 @@ function App() {
   });
 
   return (
-    <Container fluid id="main-container">
+    <div id="main-container">
       <NavBar loggedInUser={loggedInUser} handleLogout={handleLogout} />
       <Notification message={message} setMessage={setMessage} />
-      <Container
-        fluid
-        className="d-flex flex-column"
-        style={{ height: 'var(--main-height)' }}
-      >
+      <div className="main-page">
         <Routes>
           <Route
             path="/"
@@ -102,8 +99,8 @@ function App() {
             </>
           )}
         </Routes>
-      </Container>
-    </Container>
+      </div>
+    </div>
   );
 }
 

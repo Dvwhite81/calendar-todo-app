@@ -1,10 +1,15 @@
 interface LogoutBtnProps {
-  handleLogout: () => void
+  handleLogout: () => void;
 }
 
 const LogoutBtn = ({ handleLogout }: LogoutBtnProps) => {
   return (
-    <button type='button' id='logout-btn' onClick={handleLogout}>
+    <button
+      type="button"
+      className="btn"
+      id="logout-btn"
+      onClick={handleLogout}
+    >
       Log Out
     </button>
   );

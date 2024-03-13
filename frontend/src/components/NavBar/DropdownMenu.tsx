@@ -1,8 +1,7 @@
-import { NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 interface DropdownMenuProps {
-  handleClick: () => void
+  handleClick: () => void;
 }
 
 const DropdownMenu = ({ handleClick }: DropdownMenuProps) => {
@@ -23,11 +22,11 @@ const DropdownMenu = ({ handleClick }: DropdownMenuProps) => {
   ];
 
   return (
-    <>
+    <div className="dropdown-menu">
       {dummyCategories.map((category) => (
-        <NavDropdown.Item
+        <li
           key={category}
-          style={{ marginTop: '1rem', textAlign: 'center',  }}
+          style={{ marginTop: '1rem', textAlign: 'center' }}
           onClick={handleClick}
         >
           <p
@@ -37,9 +36,9 @@ const DropdownMenu = ({ handleClick }: DropdownMenuProps) => {
           >
             {category}
           </p>
-        </NavDropdown.Item>
+        </li>
       ))}
-    </>
+    </div>
   );
 };
 

@@ -12,12 +12,13 @@ const Calendar = ({
   handleSelectSlot,
   getEventStyle,
 }: CalendarProps) => {
-  const [currentDay, setCurrentDay] = useState(new Date().getDay());
+  const [currentDay, setCurrentDay] = useState(new Date().getDate());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentDate, setCurrentDate] = useState(
     new Date(currentYear, currentMonth, currentDay)
   );
+
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'January',
@@ -88,9 +89,6 @@ const Calendar = ({
           getEventStyle={getEventStyle}
         />
       </div>
-      <p>
-        {months[currentMonth]} {currentDay} {currentYear}
-      </p>
       <p>{currentDate.toDateString()}</p>
     </div>
   );

@@ -1,8 +1,8 @@
 import { Container } from 'react-bootstrap';
 
 interface NotificationProps {
-  message: string | null
-  setMessage: (value: string | null) => void
+  message: string | null;
+  setMessage: (value: string | null) => void;
 }
 
 const Notification = ({ message, setMessage }: NotificationProps) => {
@@ -14,9 +14,13 @@ const Notification = ({ message, setMessage }: NotificationProps) => {
 
   if (message === null) return;
 
+  setTimeout(() => {
+    setMessage(null);
+  }, 2000);
+
   return (
-    <Container fluid id='notification-modal'>
-      <span className='modal-close' onClick={hide}>
+    <Container fluid id="notification-modal">
+      <span className="modal-close" onClick={hide}>
         x
       </span>
       <p>{message}</p>

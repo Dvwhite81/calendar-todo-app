@@ -1,8 +1,9 @@
 import { SyntheticEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Container, Form } from 'react-bootstrap';
+
 import userService from '../services/userService';
 import { AuthResult, UserType } from '../utils/types';
+
 import FormInput from '../components/Forms/FormInput';
 
 interface LoginProps {
@@ -48,9 +49,9 @@ const Login = ({ setLoggedInUser, setMessage }: LoginProps) => {
   };
 
   return (
-    <Container fluid>
+    <div className="page">
       <h2>Login</h2>
-      <Form className="user-form" onSubmit={handleSubmit}>
+      <form className="user-form" onSubmit={handleSubmit}>
         <FormInput
           label="Username"
           type="text"
@@ -63,12 +64,14 @@ const Login = ({ setLoggedInUser, setMessage }: LoginProps) => {
           value={password}
           setValue={setPassword}
         />
-        <Button type="submit">Log In</Button>
-      </Form>
+        <button type="submit" className="btn submit-btn">
+          Log In
+        </button>
+      </form>
       <p className="text-center">
         Don't have an account? <Link to="/register">Sign up</Link>
       </p>
-    </Container>
+    </div>
   );
 };
 

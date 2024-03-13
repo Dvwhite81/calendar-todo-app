@@ -4,6 +4,7 @@ import DateModal from './DateModal';
 import EventModal from './EventModal';
 import InfoModal from './InfoModal';
 import ToDoModal from './ToDoModal';
+import './Modals.css';
 
 const Modals = ({
   toDos,

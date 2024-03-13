@@ -14,7 +14,8 @@ import {
 } from '@mui/material';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DateModalProps, ToDo } from '../../utils/types';
+import { ToDo } from '../../utils/types';
+import { DateModalProps } from '../../utils/props';
 
 const DateModal = ({
   open,

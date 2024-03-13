@@ -1,8 +1,9 @@
 import { SyntheticEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Container, Form } from 'react-bootstrap';
+
 import userService from '../services/userService';
 import { AuthResult, UserType } from '../utils/types';
+
 import FormInput from '../components/Forms/FormInput';
 
 interface RegisterProps {
@@ -71,9 +72,9 @@ const Register = ({ setLoggedInUser, setMessage }: RegisterProps) => {
   };
 
   return (
-    <Container fluid>
+    <div className="page">
       <h2>Sign Up</h2>
-      <Form className="user-form" onSubmit={handleSubmit}>
+      <form className="user-form" onSubmit={handleSubmit}>
         <FormInput
           label="Username"
           type="text"
@@ -92,12 +93,14 @@ const Register = ({ setLoggedInUser, setMessage }: RegisterProps) => {
           value={confirmation}
           setValue={setConfirmation}
         />
-        <Button type="submit">Sign Up</Button>
-      </Form>
+        <button type="submit" className="btn submit-btn">
+          Sign Up
+        </button>
+      </form>
       <p className="text-center">
         Already have an account? <Link to="/login">Log In</Link>
       </p>
-    </Container>
+    </div>
   );
 };
 

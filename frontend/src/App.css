@@ -6,28 +6,30 @@
 }
 
 #main-container {
+  background-color: gainsboro;
   display: grid;
   grid-template-rows: var(--navbar-height) var(--min-main-height);
   height: 100%;
   padding: 0;
 }
 
-.dropdown-menu[data-bs-popper].show {
-  left: 50%;
-  transform: translate(-50%, 5%);
-}
-
-.grid-container {
-  display: grid;
-  gap: 5vw;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 0 auto !important;
-  width: 90vw;
+.text-center {
+  text-align: center;
 }
 
 a {
   color: whitesmoke;
+  height: fit-content;
   text-decoration: none;
+}
+
+a:hover {
+  transform: scale(1.2);
+}
+
+ul,
+li {
+  list-style-type: none;
 }
 
 .card {
@@ -35,9 +37,15 @@ a {
 }
 
 .card-header {
+  align-items: center;
   display: flex;
-  height: 15vh;
-  padding-bottom: 1rem !important;
+  height: 8vh;
+  justify-content: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
 }
 
 img.card-img-top {
@@ -57,9 +65,21 @@ input {
 button {
   background-color: transparent;
   border: none;
-  margin: 0 auto !important;
+  border-radius: 10px;
+  cursor: pointer;
   padding: 5px 10px !important;
   width: fit-content;
+}
+
+.btn {
+  background-color: var(--dark-bg);
+  color: whitesmoke;
+}
+
+.btn:hover {
+  background-color: whitesmoke;
+  color: var(--dark-bg);
+  transform: scale(1.2);
 }
 
 .save-btn {
@@ -77,16 +97,13 @@ button {
 }
 
 #logout-btn {
-  background-color: black;
   border-radius: 10px;
-  position: absolute;
-  right: 1vh;
-  top: calc(var(--navbar-height) + 1vh);
+  color: whitesmoke;
 }
 
 #logout-btn:hover {
-  background-color: whitesmoke;
-  color: black;
+  background-color: transparent;
+  color: whitesmoke;
 }
 
 #main-logo {
@@ -98,39 +115,6 @@ button {
 #main-logo:hover {
   background-color: var(--dark-bg);
   transform: scale(1.2);
-}
-
-#notification-modal {
-  align-items: center;
-  background: linear-gradient(to top, black, lightgray);
-  border-radius: 5px;
-  color: whitesmoke;
-  display: grid;
-  height: 25%;
-  left: 50%;
-  top: 50%;
-  overflow: auto;
-  position: fixed;
-  text-align: center;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  z-index: 1;
-}
-
-.modal-close {
-  color: whitesmoke;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  top: 0;
-  right: 5px;
-}
-
-.modal-close:hover,
-.modal-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .calendar-icon {

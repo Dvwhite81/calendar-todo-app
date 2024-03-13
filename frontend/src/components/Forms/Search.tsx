@@ -1,28 +1,27 @@
 import { SyntheticEvent } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
 
 interface SearchProps {
-  query: string
-  setQuery: (value: string) => void
-  handleSubmit: (e: SyntheticEvent) => void
+  query: string;
+  setQuery: (value: string) => void;
+  handleSubmit: (e: SyntheticEvent) => void;
 }
 
 const Search = ({ query, setQuery, handleSubmit }: SearchProps) => {
   return (
-    <Container fluid>
-      <h2 className='pad-left'>Search</h2>
-      <Form onSubmit={handleSubmit} className='d-flex flex-column w-50 mx-auto gap-2 mb-2'>
-        <Form.Control
-          type='text'
+    <div className="search">
+      <h2 className="pad-left">Search</h2>
+      <form onSubmit={handleSubmit} className="search-form">
+        <input
+          type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder='Enter a search term...'
+          placeholder="Enter a search term..."
         />
-        <Button variant='primary' type='submit'>
+        <button type="submit" className="btn submit-btn">
           Search
-        </Button>
-      </Form>
-    </Container>
+        </button>
+      </form>
+    </div>
   );
 };
 

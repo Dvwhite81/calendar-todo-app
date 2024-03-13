@@ -1,23 +1,7 @@
 import { MouseEvent, useState } from 'react';
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Divider,
-} from '@mui/material';
-
-// import EventInfo from './EventInfo';
-import EventModal from '../Modals/EventModal';
-import InfoModal from '../Modals/InfoModal';
-import DateModal from '../Modals/DateModal';
-import ToDoModal from '../Modals/ToDoModal';
-
 import { Event as BigEvent } from 'react-big-calendar';
 
+// import EventInfo from './EventInfo';
 import { DateFormData, EventFormData, EventInfoType } from '../../utils/types';
 import {
   generateId,
@@ -26,6 +10,7 @@ import {
 } from '../../utils/helpers';
 import Calendar from '../Calendar/Calendar';
 import { EventAndToDoProps } from '../../utils/props';
+import Modals from '../Modals/Modals';
 
 const EventCalendar = ({
   events,
@@ -47,11 +32,13 @@ const EventCalendar = ({
     useState<DateFormData>(initialDateFormData);
 
   const handleSelectSlot = (event: BigEvent) => {
+    console.log('handleSelectSlot');
     setOpenSlot(true);
     setCurrentEvent(event);
   };
 
   const handleSelectEvent = (event: EventInfoType) => {
+    console.log('handleSelectEvent');
     setCurrentEvent(event);
     setInfoModalOpen(true);
   };
@@ -136,71 +123,49 @@ const EventCalendar = ({
   };
 
   return (
-    <Box
-      mt={2}
-      mb={2}
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 8,
-      }}
-    >
-      <Container maxWidth={false}>
-        <Card>
-          <Divider />
-          <CardHeader>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <ButtonGroup
-                size="large"
-                variant="contained"
-                aria-label="outlined primary button group"
-              >
-                <Button
+    <div className="event-calendar-container">
+      <div className="event-calendar">
+        <div className="card">
+          <div className="card-header">
+            <div className="box">
+              <div className="button-group">
+                <button
                   onClick={() => setDateModalOpen(true)}
-                  size="small"
-                  variant="contained"
+                  type="button"
+                  className="btn card-btn"
                 >
                   Add event
-                </Button>
-                <Button
+                </button>
+                <button
                   onClick={() => setToDoModalOpen(true)}
-                  size="small"
-                  variant="contained"
+                  type="button"
+                  className="btn card-btn"
                 >
                   Create toDo
-                </Button>
-              </ButtonGroup>
-            </Box>
-            <Divider style={{ margin: 10 }} />
-          </CardHeader>
-          <CardContent>
-            <EventModal
-              open={openSlot}
-              handleClose={handleEventModalClose}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="card-content">
+            <Modals
+              toDos={toDos}
+              setToDos={setToDos}
+              openSlot={openSlot}
+              handleEventModalClose={handleEventModalClose}
               eventFormData={eventFormData}
               setEventFormData={setEventFormData}
               onAddEvent={onAddEvent}
-              toDos={toDos}
-            />
-            <DateModal
-              open={dateModalOpen}
-              handleClose={handleDateModalClose}
+              dateModalOpen={dateModalOpen}
+              handleDateModalClose={handleDateModalClose}
               dateFormData={dateFormData}
               setDateFormData={setDateFormData}
-              onAddEvent={onAddDate}
-              toDos={toDos}
-            />
-            <InfoModal
-              open={infoModalOpen}
-              handleClose={handleInfoModalClose}
+              onAddDate={onAddDate}
+              infoModalOpen={infoModalOpen}
+              handleInfoModalClose={handleInfoModalClose}
               onDeleteEvent={onDeleteEvent}
-              currentEvent={currentEvent as EventInfoType}
-            />
-            <ToDoModal
-              open={toDoModalOpen}
-              handleClose={handleToDoModalClose}
-              toDos={toDos}
-              setToDos={setToDos}
+              currentEvent={currentEvent}
+              toDoModalOpen={toDoModalOpen}
+              handleToDoModalClose={handleToDoModalClose}
             />
             <Calendar
               events={events}
@@ -209,10 +174,10 @@ const EventCalendar = ({
               handleSelectSlot={handleSelectSlot}
               getEventStyle={getEventStyle}
             />
-          </CardContent>
-        </Card>
-      </Container>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
