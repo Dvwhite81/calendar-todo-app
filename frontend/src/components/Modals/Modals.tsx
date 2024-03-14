@@ -41,7 +41,7 @@ const Modals = ({
         handleClose={handleDateModalClose}
         dateFormData={dateFormData}
         setDateFormData={setDateFormData}
-        onAddEvent={onAddDate}
+        onAddDate={onAddDate}
         toDos={toDos}
       />
       <InfoModal

@@ -31,6 +31,17 @@ const EventCalendar = ({
   const [dateFormData, setDateFormData] =
     useState<DateFormData>(initialDateFormData);
 
+  const [currentDay, setCurrentDay] = useState<number>(new Date().getDate());
+  const [currentMonth, setCurrentMonth] = useState<number>(
+    new Date().getMonth()
+  );
+  const [currentYear, setCurrentYear] = useState<number>(
+    new Date().getFullYear()
+  );
+  const [currentDate, setCurrentDate] = useState(
+    new Date(currentYear, currentMonth, currentDay)
+  );
+
   const handleSelectSlot = (event: BigEvent) => {
     console.log('handleSelectSlot');
     setOpenSlot(true);
@@ -90,9 +101,6 @@ const EventCalendar = ({
   const onAddDate = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    console.log('e:', e);
-    console.log('dateFormData:', dateFormData);
-
     const addHours = (date: Date | undefined, hours: number) => {
       return date ? date.setHours(date.getHours() + hours) : undefined;
     };
@@ -106,10 +114,7 @@ const EventCalendar = ({
     const data: EventInfoType = {
       ...dateFormData,
       _id: generateId(),
-      start:
-        dateFormData.start !== undefined
-          ? setMinToZero(dateFormData.start)
-          : new Date(),
+      start: setMinToZero(dateFormData.start),
       end: dateFormData.allDay
         ? addHours(dateFormData.start, 12)
         : setMinToZero(dateFormData.end),
@@ -118,7 +123,7 @@ const EventCalendar = ({
     const newEvents = [...events, data];
 
     setEvents(newEvents);
-    handleEventModalClose();
+    handleDateModalClose();
   };
 
   const onDeleteEvent = () => {
@@ -179,6 +184,14 @@ const EventCalendar = ({
               handleSelectEvent={handleSelectEvent}
               handleSelectSlot={handleSelectSlot}
               getEventStyle={getEventStyle}
+              currentDay={currentDay}
+              setCurrentDay={setCurrentDay}
+              currentMonth={currentMonth}
+              setCurrentMonth={setCurrentMonth}
+              currentYear={currentYear}
+              setCurrentYear={setCurrentYear}
+              currentDate={currentDate}
+              setCurrentDate={setCurrentDate}
             />
           </div>
         </div>

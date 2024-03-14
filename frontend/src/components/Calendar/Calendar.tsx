@@ -14,15 +14,17 @@ const Calendar = ({
   handleSelectEvent,
   handleSelectSlot,
   getEventStyle,
+  currentDay,
+  setCurrentDay,
+  currentMonth,
+  setCurrentMonth,
+  currentYear,
+  setCurrentYear,
+  currentDate,
+  setCurrentDate,
 }: CalendarProps) => {
   const [hoverPrevIcon, setHoverPrevIcon] = useState(PrevTransparentIcon);
   const [hoverNextIcon, setHoverNextIcon] = useState(NextTransparentIcon);
-  const [currentDay, setCurrentDay] = useState(new Date().getDate());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [currentDate, setCurrentDate] = useState(
-    new Date(currentYear, currentMonth, currentDay)
-  );
 
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
@@ -43,18 +45,22 @@ const Calendar = ({
   const nextMonth = () => {
     if (currentMonth + 1 > 11) {
       setCurrentMonth(0);
-      setCurrentYear((prev) => prev + 1);
+      const newYear = currentYear + 1;
+      setCurrentYear(newYear);
     } else {
-      setCurrentMonth((prev) => prev + 1);
+      const newMonth = currentMonth + 1;
+      setCurrentMonth(newMonth);
     }
   };
 
   const prevMonth = () => {
     if (currentMonth - 1 < 0) {
       setCurrentMonth(11);
-      setCurrentYear((prev) => prev - 1);
+      const newYear = currentYear - 1;
+      setCurrentYear(newYear);
     } else {
-      setCurrentMonth((prev) => prev - 1);
+      const newMonth = currentMonth - 1;
+      setCurrentMonth(newMonth);
     }
   };
 
@@ -116,6 +122,7 @@ const Calendar = ({
           setCurrentMonth={setCurrentMonth}
           currentYear={currentYear}
           setCurrentYear={setCurrentYear}
+          currentDate={currentDate}
           setCurrentDate={setCurrentDate}
           events={events}
           toDos={toDos}

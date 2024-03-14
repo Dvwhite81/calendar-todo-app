@@ -22,7 +22,7 @@ const DateModal = ({
   handleClose,
   dateFormData,
   setDateFormData,
-  onAddEvent,
+  onAddDate,
   toDos,
 }: DateModalProps) => {
   const { description, start, end, allDay } = dateFormData;
@@ -76,6 +76,11 @@ const DateModal = ({
             margin="dense"
             id="description"
             label="Description"
+            InputLabelProps={{
+              style: {
+                top: '-10px',
+              },
+            }}
             type="text"
             fullWidth
             variant="outlined"
@@ -136,7 +141,7 @@ const DateModal = ({
         <Button color="error" onClick={onClose}>
           Cancel
         </Button>
-        <Button disabled={isDisabled()} color="success" onClick={onAddEvent}>
+        <Button disabled={isDisabled()} color="success" onClick={onAddDate}>
           Add
         </Button>
       </DialogActions>

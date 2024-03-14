@@ -10,7 +10,8 @@ const Agenda = ({ loggedInUser, toDos, events }: AgendaProps) => {
       <ul>
         {events.map((event, index) => (
           <li key={index}>
-            <p>{event.description}</p>
+            <p>Event: {event.description}</p>
+            <p>Date: {event.start?.toDateString()}</p>
           </li>
         ))}
       </ul>

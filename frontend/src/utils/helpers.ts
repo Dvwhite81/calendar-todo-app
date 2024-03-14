@@ -3,8 +3,9 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
+import { eachDayOfInterval } from 'date-fns';
 import { dateFnsLocalizer } from 'react-big-calendar';
-import { DateFormData, EventFormData } from './types';
+import { DateFormData, EventFormData, EventInfoType } from './types';
 
 export const locales = {
   'en-US': enUS,
@@ -30,8 +31,8 @@ export const initialDateFormData: DateFormData = {
   description: '',
   toDoId: undefined,
   allDay: false,
-  start: undefined,
-  end: undefined,
+  start: new Date(),
+  end: new Date(),
 };
 
 export const getCurrentDays = (
@@ -52,7 +53,7 @@ export const getCurrentDays = (
       firstDay.setDate(firstDay.getDate() + 1);
     }
 
-    let calendarDay = {
+    const calendarDay = {
       currentMonth: firstDay.getMonth() === month,
       date: new Date(firstDay),
       month: firstDay.getMonth(),
@@ -66,4 +67,23 @@ export const getCurrentDays = (
   }
 
   return currentDays;
+};
+
+export const getUrgencyColor = (urgency: string) => {
+  return urgency === 'normal'
+    ? 'green'
+    : urgency === 'urgent'
+    ? 'yellow'
+    : 'red';
+};
+
+export const getEventDateRange = (event: EventInfoType): Date[] => {
+  const { start, end } = event;
+  if (!start) return [];
+  if (!end) return [start];
+
+  return eachDayOfInterval({
+    start: new Date(start),
+    end: new Date(end),
+  });
 };

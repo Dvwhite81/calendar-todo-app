@@ -97,3 +97,10 @@
 .selected:hover p {
   color: var(--off-white);
 }
+
+.info-icon {
+  bottom: 0;
+  height: calc(var(--day-height) * 2);
+  position: absolute;
+  right: 0;
+}

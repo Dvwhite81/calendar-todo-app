@@ -23,7 +23,8 @@ export interface UserResult {
 export interface ToDo {
   _id: string;
   title: string;
-  color?: string;
+  urgency: string;
+  color: string;
 }
 
 export interface EventInfoType extends BigEvent {

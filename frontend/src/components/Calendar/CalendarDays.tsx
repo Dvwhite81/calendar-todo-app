@@ -1,7 +1,10 @@
-import { getCurrentDays } from '../../utils/helpers';
-import { CalendarDaysProps } from '../../utils/props';
+import { getCurrentDays, getEventDateRange } from '../../utils/helpers';
+import { CalendarProps } from '../../utils/props';
+import { CurrentDayType, EventInfoType } from '../../utils/types';
+import InfoIcon from '../../assets/images/info-icon.png';
 
 const CalendarDays = ({
+  events,
   currentDay,
   setCurrentDay,
   currentMonth,
@@ -9,12 +12,8 @@ const CalendarDays = ({
   currentYear,
   setCurrentYear,
   setCurrentDate,
-  events,
-  toDos,
   handleSelectEvent,
-  handleSelectSlot,
-  getEventStyle,
-}: CalendarDaysProps) => {
+}: CalendarProps) => {
   const firstDay = new Date(currentYear, currentMonth, 1);
   const weekdayOfFirstDay = firstDay.getDay();
   const currentDays = getCurrentDays(
@@ -32,9 +31,33 @@ const CalendarDays = ({
     setCurrentDate(new Date(year, month, day));
   };
 
-  const handleDayClick = (year: number, month: number, day: number) => {
-    setDay(year, month, day);
+  const handleDayClick = (calendarDay: CurrentDayType) => {
+    setDay(calendarDay.year, calendarDay.month, calendarDay.number);
     // Open Modal
+    const eventsForDay = getEventsForDay(calendarDay);
+    console.log('handleDayClick events:', eventsForDay);
+    if (eventsForDay.length > 0) {
+      handleSelectEvent(eventsForDay[0]);
+    }
+  };
+
+  const getEventsForDay = (day: CurrentDayType): EventInfoType[] => {
+    const { date } = day;
+
+    const dayEvents = [];
+    for (const e of events) {
+      const range = getEventDateRange(e);
+      if (range && range.toString().includes(date.toString())) {
+        dayEvents.push(e);
+      }
+    }
+
+    return dayEvents;
+  };
+
+  const hasEvent = (day: CurrentDayType): boolean => {
+    const eventsForDay = getEventsForDay(day);
+    return eventsForDay.length > 0;
   };
 
   return (
@@ -47,9 +70,16 @@ const CalendarDays = ({
             (d.currentMonth ? ' current' : '') +
             (d.selected ? ' selected' : '')
           }
-          onClick={() => handleDayClick(d.year, d.month, d.number)}
+          onClick={() => handleDayClick(d)}
         >
           <p className="calendar-day-text">{d.number}</p>
+          {hasEvent(d) && (
+            <img
+              className="icon info-icon"
+              src={InfoIcon}
+              alt="get event info"
+            />
+          )}
         </div>
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   Dialog,
   DialogActions,
@@ -13,15 +13,26 @@ import {
   ListItem,
   ListItemText,
   TextField,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { HexColorPicker } from 'react-colorful';
 import { ToDoModalProps } from '../../utils/props';
-import { generateId } from '../../utils/helpers';
+import { generateId, getUrgencyColor } from '../../utils/helpers';
+import { FormLabel } from 'react-bootstrap';
+import { green, red, yellow } from '@mui/material/colors';
 
 const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
-  const [color, setColor] = useState('#b32aa9');
+  const [urgency, setUrgency] = useState('normal');
   const [title, setTitle] = useState('');
+
+  const toDoColor =
+    urgency === 'normal' ? 'green' : urgency === 'urgent' ? 'yellow' : 'red';
+
+  const handleUrgencyChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUrgency((event.target as HTMLInputElement).value);
+  };
 
   const onAddToDo = () => {
     setTitle('');
@@ -29,8 +40,9 @@ const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
       ...toDos,
       {
         _id: generateId(),
-        color,
+        urgency,
         title,
+        color: getUrgencyColor(urgency),
       },
     ]);
   };
@@ -54,6 +66,11 @@ const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
             margin="dense"
             id="title"
             label="Title"
+            InputLabelProps={{
+              style: {
+                top: '-10px',
+              },
+            }}
             type="text"
             fullWidth
             sx={{ mb: 6 }}
@@ -65,12 +82,57 @@ const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
             value={title}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-            <HexColorPicker color={color} onChange={setColor} />
-            <Box
-              sx={{ height: 80, width: 80, borderRadius: 1 }}
-              className="value"
-              style={{ backgroundColor: color }}
-            ></Box>
+            <FormLabel id="urgency-radio-group-label">Urgency: </FormLabel>
+            <RadioGroup
+              aria-labelledby="urgency-radio-group-label"
+              defaultValue={'normal'}
+              name="urgency-radio-group"
+              value={urgency}
+              onChange={handleUrgencyChange}
+            >
+              <FormControlLabel
+                value="normal"
+                control={
+                  <Radio
+                    sx={{
+                      color: green[600],
+                      '&.Mui-checked': {
+                        color: green[600],
+                      },
+                    }}
+                  />
+                }
+                label="Normal"
+              />
+              <FormControlLabel
+                value="urgent"
+                control={
+                  <Radio
+                    sx={{
+                      color: yellow[600],
+                      '&.Mui-checked': {
+                        color: yellow[600],
+                      },
+                    }}
+                  />
+                }
+                label="Urgent"
+              />
+              <FormControlLabel
+                value="top-priority"
+                control={
+                  <Radio
+                    sx={{
+                      color: red[600],
+                      '&.Mui-checked': {
+                        color: red[600],
+                      },
+                    }}
+                  />
+                }
+                label="Top Priority"
+              />
+            </RadioGroup>
           </Box>
           <Box>
             <List sx={{ marginTop: 3 }}>
@@ -95,7 +157,7 @@ const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
                       marginRight: 1,
                     }}
                     className="value"
-                    style={{ backgroundColor: toDo.color }}
+                    style={{ backgroundColor: toDoColor }}
                   ></Box>
                   <ListItemText primary={toDo.title} />
                 </ListItem>
@@ -116,7 +178,7 @@ const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
         </Button>
         <Button
           onClick={() => onAddToDo()}
-          disabled={title === '' || color === ''}
+          disabled={title === '' || urgency === ''}
           sx={{ marginRight: 2 }}
           variant="contained"
           color="success"
