@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const User = require ('../models/user');
+const User = require('../models/user');
 const { verifyJWT } = require('../utils/validation');
 
 const authRouter = express.Router();
@@ -25,8 +25,11 @@ authRouter.post('/register', async (req, res) => {
     username: user.username,
     password: user.password,
     token: '',
-    recipes: [],
+    toDos: [],
+    events: [],
   });
+
+  console.log('newUser:', newUser);
 
   await newUser.save();
   res.json({
@@ -48,7 +51,10 @@ authRouter.post('/login', async (req, res) => {
     });
   }
 
-  const isCorrect = await bcrypt.compare(loggingUser.password, userExists.password);
+  const isCorrect = await bcrypt.compare(
+    loggingUser.password,
+    userExists.password
+  );
 
   if (!isCorrect) {
     return res.json({
@@ -93,7 +99,8 @@ authRouter.get('/getUser', verifyJWT, (req, res) => {
     success: true,
     isLoggedIn: true,
     username: req.user.username,
-    recipes: req.user.recipes,
+    toDos: req.user.toDos,
+    events: req.user.events,
   });
 });
 

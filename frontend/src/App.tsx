@@ -50,6 +50,32 @@ function App() {
     redirect('/');
   });
 
+  /*
+  useEffect(() => {
+    if (!loggedInUser) return;
+
+    const { username } = loggedInUser;
+
+    const fetchUserEvents = async () => {
+      const savedUserEvents = await userService.getUserEvents(username);
+      console.log('fetchEvents events:', savedUserEvents);
+      if (savedUserEvents.success) {
+        setEvents(savedUserEvents.events);
+      }
+    };
+
+    const fetchUserToDos = async () => {
+      const savedUserToDos = await userService.getUserToDos(username);
+
+      if (savedUserToDos.success) {
+        setToDos(savedUserToDos.toDos);
+      }
+    };
+
+    fetchUserEvents();
+    fetchUserToDos();
+  });
+`*/
   return (
     <div id="main-container">
       <NavBar loggedInUser={loggedInUser} handleLogout={handleLogout} />

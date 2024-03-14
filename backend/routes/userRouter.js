@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const EventModel = require('../models/event');
 
 const userRouter = express.Router();
 
@@ -23,8 +24,8 @@ userRouter.get('/:token', async (req, res) => {
   });
 });
 
-// Get user recipes
-userRouter.get('/:username/recipes', async (req, res) => {
+// Get user events
+userRouter.get('/:username/events', async (req, res) => {
   const { username } = req.params;
 
   const userExists = await User.findOne({ username: username });
@@ -35,15 +36,35 @@ userRouter.get('/:username/recipes', async (req, res) => {
       message: 'No user found with that username',
     });
   }
-  console.log('backend userExists.recipes:', userExists.recipes);
+  console.log('backend userExists:', userExists);
+  console.log('backend userExists.events:', userExists.events);
   res.json({
     success: true,
-    recipes: userExists.recipes,
+    events: userExists.events,
   });
 });
 
-// User save recipe
-userRouter.post('/:username/recipes', async (req, res) => {
+// Get user toDos
+userRouter.get('/:username/toDos', async (req, res) => {
+  const { username } = req.params;
+
+  const userExists = await User.findOne({ username: username });
+
+  if (!userExists) {
+    return res.json({
+      success: false,
+      message: 'No user found with that username',
+    });
+  }
+  // console.log('backend userExists.toDos:', userExists.toDos);
+  res.json({
+    success: true,
+    toDos: userExists.toDos,
+  });
+});
+
+// User save event
+userRouter.post('/:username/events', async (req, res) => {
   console.log('req.body:', req.body);
 
   const { username } = req.params;
@@ -57,32 +78,36 @@ userRouter.post('/:username/recipes', async (req, res) => {
     });
   }
 
-  const { recipe } = req.body;
-  const { recipes } = userExists;
+  const { description, allDay, start, end, _id } = req.body;
+  const newEvent = new EventModel({ description, allDay, start, end, _id });
+  console.log('backend req.body:', req.body);
+  const { events } = userExists;
   console.log('backend userExists:', userExists);
-  console.log('backend recipes:', recipes);
-  console.log('backend recipe', recipe);
+  console.log('backend events:', events);
+  console.log('backend newEvent', newEvent);
 
-  userExists.recipes = [...recipes, recipe];
+  userExists.events = userExists.events.concat(newEvent);
   const updatedUser = await userExists.save();
 
   if (updatedUser) {
     return res.json({
       success: true,
-      message: 'Saved recipe successfully',
-      newRecipe: recipe,
-      recipes: updatedUser.recipes,
+      message: 'Saved event successfully',
+      newEvent: newEvent,
+      events: updatedUser.events,
     });
   } else {
     return res.json({
       success: false,
-      message: 'Error saving recipe',
+      message: 'Error saving event',
     });
   }
 });
 
-// User remove saved recipe
-userRouter.put('/:username/recipes', async (req, res) => {
+// User save toDo
+userRouter.post('/:username/toDos', async (req, res) => {
+  // console.log('req.body:', req.body);
+
   const { username } = req.params;
 
   const userExists = await User.findOne({ username: username });
@@ -94,22 +119,92 @@ userRouter.put('/:username/recipes', async (req, res) => {
     });
   }
 
-  const recipe = req.body;
-  const { recipes } = userExists;
+  const { toDo } = req.body;
+  const { toDos } = userExists;
+  // console.log('backend userExists:', userExists);
+  // console.log('backend toDos:', toDos);
+  // console.log('backend toDo', toDo);
 
-  userExists.recipes = recipes.filter((r) => r.uri !== recipe.uri);
+  userExists.toDos = [...toDos, toDo];
   const updatedUser = await userExists.save();
 
   if (updatedUser) {
     return res.json({
       success: true,
-      message: 'Deleted recipe successfully',
-      recipes: updatedUser.recipes,
+      message: 'Saved toDo successfully',
+      newToDo: toDo,
+      toDos: updatedUser.toDos,
     });
   } else {
     return res.json({
       success: false,
-      message: 'Error deleting recipe',
+      message: 'Error saving toDo',
+    });
+  }
+});
+
+// User remove saved event
+userRouter.put('/:username/events', async (req, res) => {
+  const { username } = req.params;
+
+  const userExists = await User.findOne({ username: username });
+
+  if (!userExists) {
+    return res.json({
+      success: false,
+      message: 'No user found with that username',
+    });
+  }
+
+  const event = req.body;
+  const { events } = userExists;
+
+  userExists.events = events.filter((r) => r.uri !== event.uri);
+  const updatedUser = await userExists.save();
+
+  if (updatedUser) {
+    return res.json({
+      success: true,
+      message: 'Deleted event successfully',
+      events: updatedUser.events,
+    });
+  } else {
+    return res.json({
+      success: false,
+      message: 'Error deleting event',
+    });
+  }
+});
+
+// User remove saved toDo
+userRouter.put('/:username/toDos', async (req, res) => {
+  const { username } = req.params;
+
+  const userExists = await User.findOne({ username: username });
+
+  if (!userExists) {
+    return res.json({
+      success: false,
+      message: 'No user found with that username',
+    });
+  }
+
+  const toDo = req.body;
+  const { toDos } = userExists;
+
+  userExists.toDos = toDos.filter((r) => r.uri !== toDo.uri);
+  const updatedUser = await userExists.save();
+
+  if (updatedUser) {
+    return res.json({
+      success: true,
+      message: 'Deleted toDo successfully',
+      toDos: updatedUser.toDos,
+    });
+  } else {
+    return res.json({
+      success: false,
+      message: 'Error deleting toDo',
     });
   }
 });

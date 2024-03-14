@@ -31,6 +31,7 @@ export interface DateModalProps {
   dateFormData: DateFormData;
   setDateFormData: Dispatch<SetStateAction<DateFormData>>;
   onAddDate: (e: MouseEvent<HTMLButtonElement>) => void;
+  currentDate: Date;
   toDos: ToDo[];
 }
 
@@ -39,12 +40,14 @@ export interface ToDoModalProps {
   handleClose: Dispatch<SetStateAction<void>>;
   toDos: ToDo[];
   setToDos: Dispatch<SetStateAction<ToDo[]>>;
+  loggedInUser: UserType | null;
 }
 
 export interface DayEventsModalProps {
   open: boolean;
   handleClose: Dispatch<SetStateAction<void>>;
   onDeleteEvent: (e: MouseEvent<HTMLButtonElement>) => void;
+  currentDate: Date;
   events: EventInfoType[];
 }
 
@@ -57,6 +60,7 @@ export interface CalendarProps {
   toDos: ToDo[];
   handleSelectEvent: (event: EventInfoType) => void;
   handleSelectSlot: (event: BigEvent) => void;
+  handleSelectDay: (date: Date) => void;
   getEventStyle: (event: EventInfoType) => EventStyleType;
   currentDay: number;
   setCurrentDay: (day: number) => void;
@@ -66,6 +70,8 @@ export interface CalendarProps {
   setCurrentYear: (year: number) => void;
   currentDate: Date;
   setCurrentDate: (date: Date) => void;
+  dateFormData: DateFormData;
+  setDateFormData: Dispatch<SetStateAction<DateFormData>>;
 }
 
 export interface EventAndToDoProps {
@@ -73,6 +79,7 @@ export interface EventAndToDoProps {
   setEvents: Dispatch<SetStateAction<EventInfoType[]>>;
   toDos: ToDo[];
   setToDos: Dispatch<SetStateAction<ToDo[]>>;
+  loggedInUser: UserType | null;
 }
 
 export interface HomeProps extends EventAndToDoProps {
@@ -101,6 +108,11 @@ export interface AllModalsProps {
   currentEvent: BigEvent | EventInfoType | null;
   toDoModalOpen: boolean;
   handleToDoModalClose: () => void;
+  currentDate: Date;
+  events: EventInfoType[];
+  dayEventsModalOpen: boolean;
+  handleDayEventsModalClose: () => void;
+  loggedInUser: UserType | null;
 }
 
 export interface AgendaProps {

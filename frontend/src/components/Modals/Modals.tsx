@@ -5,6 +5,7 @@ import EventModal from './EventModal';
 import InfoModal from './InfoModal';
 import ToDoModal from './ToDoModal';
 import './Modals.css';
+import DayEventsModal from './DayEventsModal';
 
 const Modals = ({
   toDos,
@@ -25,6 +26,11 @@ const Modals = ({
   currentEvent,
   toDoModalOpen,
   handleToDoModalClose,
+  currentDate,
+  events,
+  dayEventsModalOpen,
+  handleDayEventsModalClose,
+  loggedInUser,
 }: AllModalsProps) => {
   return (
     <>
@@ -42,6 +48,7 @@ const Modals = ({
         dateFormData={dateFormData}
         setDateFormData={setDateFormData}
         onAddDate={onAddDate}
+        currentDate={currentDate}
         toDos={toDos}
       />
       <InfoModal
@@ -55,6 +62,14 @@ const Modals = ({
         handleClose={handleToDoModalClose}
         toDos={toDos}
         setToDos={setToDos}
+        loggedInUser={loggedInUser}
+      />
+      <DayEventsModal
+        open={dayEventsModalOpen}
+        handleClose={handleDayEventsModalClose}
+        onDeleteEvent={onDeleteEvent}
+        currentDate={currentDate}
+        events={events}
       />
     </>
   );

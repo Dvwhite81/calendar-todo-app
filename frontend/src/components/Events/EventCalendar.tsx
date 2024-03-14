@@ -11,12 +11,14 @@ import {
 import Calendar from '../Calendar/Calendar';
 import { EventAndToDoProps } from '../../utils/props';
 import Modals from '../Modals/Modals';
+import userService from '../../services/userService';
 
 const EventCalendar = ({
   events,
   setEvents,
   toDos,
   setToDos,
+  loggedInUser,
 }: EventAndToDoProps) => {
   const [openSlot, setOpenSlot] = useState(false);
   const [dateModalOpen, setDateModalOpen] = useState(false);
@@ -25,6 +27,8 @@ const EventCalendar = ({
     BigEvent | EventInfoType | null
   >(null);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [dayEventsModalOpen, setDayEventsModalOpen] = useState(false);
+
   const [eventFormData, setEventFormData] = useState<EventFormData>(
     initialEventFormState
   );
@@ -52,6 +56,12 @@ const EventCalendar = ({
     console.log('handleSelectEvent');
     setCurrentEvent(event);
     setInfoModalOpen(true);
+  };
+
+  const handleSelectDay = (date: Date) => {
+    console.log('handleSelectDay');
+    setCurrentDate(date);
+    setDayEventsModalOpen(true);
   };
 
   const getEventStyle = (event: EventInfoType) => {
@@ -82,6 +92,21 @@ const EventCalendar = ({
     setToDoModalOpen(false);
   };
 
+  const handleDayEventsModalClose = () => {
+    setDayEventsModalOpen(false);
+  };
+
+  const saveEvent = async (event: EventInfoType) => {
+    console.log('saveEvent event:', event);
+    console.log('loggedInUser:', loggedInUser);
+    console.log('username:', loggedInUser?.username);
+    if (!loggedInUser || !loggedInUser.username) return;
+
+    const { username } = loggedInUser;
+
+    await userService.addUserEvent(username, event);
+  };
+
   const onAddEvent = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -94,6 +119,7 @@ const EventCalendar = ({
 
     const newEvents = [...events, data];
 
+    saveEvent(data);
     setEvents(newEvents);
     handleEventModalClose();
   };
@@ -122,6 +148,7 @@ const EventCalendar = ({
 
     const newEvents = [...events, data];
 
+    saveEvent(data);
     setEvents(newEvents);
     handleDateModalClose();
   };
@@ -177,12 +204,18 @@ const EventCalendar = ({
               currentEvent={currentEvent}
               toDoModalOpen={toDoModalOpen}
               handleToDoModalClose={handleToDoModalClose}
+              currentDate={currentDate}
+              events={events}
+              dayEventsModalOpen={dayEventsModalOpen}
+              handleDayEventsModalClose={handleDayEventsModalClose}
+              loggedInUser={loggedInUser}
             />
             <Calendar
               events={events}
               toDos={toDos}
               handleSelectEvent={handleSelectEvent}
               handleSelectSlot={handleSelectSlot}
+              handleSelectDay={handleSelectDay}
               getEventStyle={getEventStyle}
               currentDay={currentDay}
               setCurrentDay={setCurrentDay}
@@ -192,6 +225,8 @@ const EventCalendar = ({
               setCurrentYear={setCurrentYear}
               currentDate={currentDate}
               setCurrentDate={setCurrentDate}
+              dateFormData={dateFormData}
+              setDateFormData={setDateFormData}
             />
           </div>
         </div>

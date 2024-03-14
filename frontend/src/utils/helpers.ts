@@ -87,3 +87,63 @@ export const getEventDateRange = (event: EventInfoType): Date[] => {
     end: new Date(end),
   });
 };
+
+export const getEventsForDay = (
+  day: Date,
+  events: EventInfoType[]
+): EventInfoType[] => {
+  const date = day.toDateString();
+
+  console.log('getEventsForDay events:', events);
+  const dayEvents = [];
+  for (const e of events) {
+    const range = getEventDateRange(e);
+    if (range && range.toString().includes(date.toString())) {
+      dayEvents.push(e);
+    }
+  }
+
+  return dayEvents;
+};
+
+export const dataIsEventTypes = (events: unknown[]) => {
+  if (!events) return;
+
+  for (const event of events) {
+    if (
+      !event ||
+      typeof event !== 'object' ||
+      '_id' in event ||
+      'allDay' in event ||
+      'description' in event ||
+      'end' in event ||
+      'resource' in event ||
+      'start' in event ||
+      'title' in event ||
+      'toDoId' in event
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+export const dataIsToDoTypes = (toDos: unknown[]) => {
+  if (!toDos) return;
+
+  for (const toDo of toDos) {
+    if (
+      !toDo ||
+      typeof toDo !== 'object' ||
+      '_id' in toDo ||
+      'color' in toDo ||
+      'title' in toDo ||
+      'urgency' in toDo
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+};

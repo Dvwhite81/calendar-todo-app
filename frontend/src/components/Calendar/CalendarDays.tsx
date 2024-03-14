@@ -1,6 +1,6 @@
-import { getCurrentDays, getEventDateRange } from '../../utils/helpers';
+import { getCurrentDays, getEventsForDay } from '../../utils/helpers';
 import { CalendarProps } from '../../utils/props';
-import { CurrentDayType, EventInfoType } from '../../utils/types';
+import { CurrentDayType } from '../../utils/types';
 import InfoIcon from '../../assets/images/info-icon.png';
 
 const CalendarDays = ({
@@ -12,7 +12,9 @@ const CalendarDays = ({
   currentYear,
   setCurrentYear,
   setCurrentDate,
-  handleSelectEvent,
+  handleSelectDay,
+  dateFormData,
+  setDateFormData,
 }: CalendarProps) => {
   const firstDay = new Date(currentYear, currentMonth, 1);
   const weekdayOfFirstDay = firstDay.getDay();
@@ -33,30 +35,24 @@ const CalendarDays = ({
 
   const handleDayClick = (calendarDay: CurrentDayType) => {
     setDay(calendarDay.year, calendarDay.month, calendarDay.number);
+    setDateFormData({
+      ...dateFormData,
+      start: calendarDay.date,
+      end: calendarDay.date,
+    });
+
     // Open Modal
-    const eventsForDay = getEventsForDay(calendarDay);
+    const day = calendarDay.date;
+    const eventsForDay = getEventsForDay(day, events);
     console.log('handleDayClick events:', eventsForDay);
     if (eventsForDay.length > 0) {
-      handleSelectEvent(eventsForDay[0]);
+      handleSelectDay(day);
     }
   };
 
-  const getEventsForDay = (day: CurrentDayType): EventInfoType[] => {
-    const { date } = day;
-
-    const dayEvents = [];
-    for (const e of events) {
-      const range = getEventDateRange(e);
-      if (range && range.toString().includes(date.toString())) {
-        dayEvents.push(e);
-      }
-    }
-
-    return dayEvents;
-  };
-
-  const hasEvent = (day: CurrentDayType): boolean => {
-    const eventsForDay = getEventsForDay(day);
+  const hasEvent = (calendarDay: CurrentDayType): boolean => {
+    const day = calendarDay.date;
+    const eventsForDay = getEventsForDay(day, events);
     return eventsForDay.length > 0;
   };
 

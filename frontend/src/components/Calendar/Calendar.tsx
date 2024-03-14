@@ -13,6 +13,7 @@ const Calendar = ({
   toDos,
   handleSelectEvent,
   handleSelectSlot,
+  handleSelectDay,
   getEventStyle,
   currentDay,
   setCurrentDay,
@@ -22,6 +23,8 @@ const Calendar = ({
   setCurrentYear,
   currentDate,
   setCurrentDate,
+  dateFormData,
+  setDateFormData,
 }: CalendarProps) => {
   const [hoverPrevIcon, setHoverPrevIcon] = useState(PrevTransparentIcon);
   const [hoverNextIcon, setHoverNextIcon] = useState(NextTransparentIcon);
@@ -128,7 +131,10 @@ const Calendar = ({
           toDos={toDos}
           handleSelectEvent={handleSelectEvent}
           handleSelectSlot={handleSelectSlot}
+          handleSelectDay={handleSelectDay}
           getEventStyle={getEventStyle}
+          dateFormData={dateFormData}
+          setDateFormData={setDateFormData}
         />
       </div>
       <p>{currentDate.toDateString()}</p>

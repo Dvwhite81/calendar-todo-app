@@ -2,7 +2,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Button,
   Box,
@@ -10,23 +9,28 @@ import {
 } from '@mui/material';
 import { DayEventsModalProps } from '../../utils/props';
 import { EventInfoType } from '../../utils/types';
+import { getEventsForDay } from '../../utils/helpers';
 
 const DayEventsModal = ({
   open,
   handleClose,
   onDeleteEvent,
+  currentDate,
   events,
 }: DayEventsModalProps) => {
   const onClose = () => handleClose();
+
+  console.log('dayeventsmodal events:', events);
+  const dayEvents = getEventsForDay(currentDate, events);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Events For Day</DialogTitle>
       <Box>
-        {events.map((currentEvent: EventInfoType) => (
-          <DialogContent>
-            {currentEvent?.start !== undefined && (
-              <DialogContentText>
+        {dayEvents.map((currentEvent: EventInfoType) => (
+          <Box key={currentEvent._id}>
+            <DialogContent>
+              {currentEvent?.start !== undefined && (
                 <Typography
                   sx={{ fontSize: 16, marginTop: 1 }}
                   color="text.primary"
@@ -34,10 +38,8 @@ const DayEventsModal = ({
                 >
                   Start: {currentEvent?.start?.toDateString()}
                 </Typography>
-              </DialogContentText>
-            )}
-            {currentEvent?.end !== undefined && (
-              <DialogContentText>
+              )}
+              {currentEvent?.end !== undefined && (
                 <Typography
                   sx={{ fontSize: 16, marginTop: 1 }}
                   color="text.primary"
@@ -45,9 +47,7 @@ const DayEventsModal = ({
                 >
                   End: {currentEvent?.end?.toDateString()}
                 </Typography>
-              </DialogContentText>
-            )}
-            <DialogContentText>
+              )}
               <Typography
                 sx={{ fontSize: 14, marginTop: 1 }}
                 color="text.secondary"
@@ -55,9 +55,9 @@ const DayEventsModal = ({
               >
                 {currentEvent?.description}
               </Typography>
-            </DialogContentText>
-            <Box component="form"></Box>
-          </DialogContent>
+              <Box component="form"></Box>
+            </DialogContent>
+          </Box>
         ))}
       </Box>
       <DialogActions>

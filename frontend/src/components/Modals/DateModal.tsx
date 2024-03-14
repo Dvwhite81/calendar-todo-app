@@ -67,7 +67,7 @@ const DateModal = ({
       <DialogTitle>Add event</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          To add a event, please fill in the information below.
+          To add an event, please fill in the information below.
         </DialogContentText>
         <Box component="form">
           <TextField

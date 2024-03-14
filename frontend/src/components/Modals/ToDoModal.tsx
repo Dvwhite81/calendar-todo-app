@@ -22,8 +22,16 @@ import { ToDoModalProps } from '../../utils/props';
 import { generateId, getUrgencyColor } from '../../utils/helpers';
 import { FormLabel } from 'react-bootstrap';
 import { green, red, yellow } from '@mui/material/colors';
+import { ToDo } from '../../utils/types';
+import userService from '../../services/userService';
 
-const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
+const ToDoModal = ({
+  open,
+  handleClose,
+  toDos,
+  setToDos,
+  loggedInUser,
+}: ToDoModalProps) => {
   const [urgency, setUrgency] = useState('normal');
   const [title, setTitle] = useState('');
 
@@ -34,17 +42,26 @@ const ToDoModal = ({ open, handleClose, toDos, setToDos }: ToDoModalProps) => {
     setUrgency((event.target as HTMLInputElement).value);
   };
 
+  const saveToDo = async (toDo: ToDo) => {
+    if (!loggedInUser || !loggedInUser.username) return;
+
+    const { username } = loggedInUser;
+
+    await userService.addUserToDo(username, toDo);
+  };
+
   const onAddToDo = () => {
+    const newToDo = {
+      _id: generateId(),
+      urgency,
+      title,
+      color: getUrgencyColor(urgency),
+    };
+
+    setToDos([...toDos, newToDo]);
     setTitle('');
-    setToDos([
-      ...toDos,
-      {
-        _id: generateId(),
-        urgency,
-        title,
-        color: getUrgencyColor(urgency),
-      },
-    ]);
+
+    saveToDo(newToDo);
   };
 
   const onDeleteToDo = (_id: string) =>
